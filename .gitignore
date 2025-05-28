@@ -5,7 +5,7 @@ build/
 !**/src/test/**/build/
 
 docs/
-birthdays-firebase.json
+secrets/
 
 ### STS ###
 .apt_generated

@@ -14,7 +14,7 @@ application {
 
 ktor {
     fatJar {
-        archiveFileName.set("birthdays-backend.jar")
+        archiveFileName.set("app.jar")
     }
 }
 

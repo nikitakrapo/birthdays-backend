@@ -10,7 +10,7 @@ import java.io.File
 fun Application.configureSecurity() {
     install(Authentication) {
         firebase {
-            adminFile = File("birthdays-firebase.json")
+            adminFile = File("secrets/birthdays-firebase.json")
             validate { token ->
                 UserPrincipal(uid = token.uid)
             }
