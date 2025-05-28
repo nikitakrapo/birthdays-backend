@@ -10,7 +10,7 @@ import io.ktor.server.routing.post
 
 fun Routing.configureBirthdaysRouting() {
     post("/birthdays") {
-        val user = call.principal<UserPrincipal>() ?: run{
+        val user = call.principal<UserPrincipal>() ?: run {
             call.respond(HttpStatusCode.Unauthorized)
             return@post
         }
