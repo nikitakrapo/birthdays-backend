@@ -4,6 +4,9 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
+docs/
+birthdays-firebase.json
+
 ### STS ###
 .apt_generated
 .classpath

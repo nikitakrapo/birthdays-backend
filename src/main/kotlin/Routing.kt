@@ -1,23 +1,17 @@
 package com.nikitakrapo
 
-import com.kborowy.authprovider.firebase.firebase
-import io.ktor.serialization.kotlinx.json.*
-import io.ktor.server.application.*
-import io.ktor.server.auth.*
-import io.ktor.server.plugins.contentnegotiation.*
-import io.ktor.server.plugins.defaultheaders.*
-import io.ktor.server.plugins.openapi.*
-import io.ktor.server.response.*
-import io.ktor.server.routing.*
-import java.io.File
-import org.koin.dsl.module
-import org.koin.ktor.plugin.Koin
-import org.koin.logger.slf4jLogger
+import com.nikitakrapo.birthdays.configureBirthdaysRouting
+import io.ktor.server.application.Application
+import io.ktor.server.response.respondText
+import io.ktor.server.routing.get
+import io.ktor.server.routing.routing
 
 fun Application.configureRouting() {
     routing {
         get("/") {
             call.respondText("Hello World!")
         }
+
+        configureBirthdaysRouting()
     }
 }

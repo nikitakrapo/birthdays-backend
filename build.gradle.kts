@@ -9,7 +9,13 @@ group = "com.nikitakrapo"
 version = "0.0.1"
 
 application {
-    mainClass = "io.ktor.server.netty.EngineMain"
+    mainClass = "com.nikitakrapo.ApplicationKt"
+}
+
+ktor {
+    fatJar {
+        archiveFileName.set("birthdays-backend.jar")
+    }
 }
 
 repositories {
