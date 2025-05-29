@@ -23,6 +23,8 @@ repositories {
 }
 
 dependencies {
+    implementation(libs.kotlinx.datetime)
+    implementation(libs.kotlinx.serialization)
     implementation(libs.koin.ktor)
     implementation(libs.koin.logger.slf4j)
     implementation(libs.ktor.server.content.negotiation)
@@ -33,6 +35,10 @@ dependencies {
     implementation(libs.ktor.server.openapi)
     implementation(libs.ktor.server.default.headers)
     implementation(libs.ktor.server.netty)
+    implementation(libs.exposed.core)
+    implementation(libs.exposed.jdbc)
+    implementation(libs.exposed.datetime)
+    implementation(libs.postgresql)
     implementation(libs.logback.classic)
     implementation(libs.ktor.server.config.yaml)
     testImplementation(libs.ktor.server.test.host)

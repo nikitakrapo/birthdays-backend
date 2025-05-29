@@ -1,6 +1,6 @@
 package com.nikitakrapo.birthdays
 
-import com.nikitakrapo.user.UserPrincipal
+import com.nikitakrapo.plugins.security.UserPrincipal
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.auth.principal
 import io.ktor.server.response.respond
