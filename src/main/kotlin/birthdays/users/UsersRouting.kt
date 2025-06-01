@@ -2,6 +2,7 @@ package com.nikitakrapo.birthdays.users
 
 import com.nikitakrapo.plugins.security.UserPrincipal
 import io.ktor.http.HttpStatusCode
+import io.ktor.server.auth.authenticate
 import io.ktor.server.auth.principal
 import io.ktor.server.request.receive
 import io.ktor.server.response.respond
@@ -11,42 +12,44 @@ import io.ktor.server.routing.post
 
 fun Routing.configureUsersRouting() {
 
-    get("/user") {
-        val principal = call.principal<UserPrincipal>() ?: run {
-            call.respond(HttpStatusCode.Unauthorized)
-            return@get
-        }
-
-        val fullUser = UsersService.getUser(principal.uid)
-            ?.toFullDto()
-            ?: run {
-                call.respond(HttpStatusCode.InternalServerError)
+    authenticate {
+        get("/user") {
+            val principal = call.principal<UserPrincipal>() ?: run {
+                call.respond(HttpStatusCode.Unauthorized)
                 return@get
             }
 
-        call.respond(fullUser)
-    }
+            val fullUser = UsersService.getUser(principal.uid)
+                ?.toFullDto()
+                ?: run {
+                    call.respond(HttpStatusCode.InternalServerError)
+                    return@get
+                }
 
-    post("/user") {
-        val principal = call.principal<UserPrincipal>() ?: run {
-            call.respond(HttpStatusCode.Unauthorized)
-            return@post
+            call.respond(fullUser)
         }
 
-        val userInfo = call.receive<UserInfoCreationRequestDto>()
-            .toDomain(uid = principal.uid)
-            ?: run {
-                call.respond(HttpStatusCode.BadRequest)
+        post("/user") {
+            val principal = call.principal<UserPrincipal>() ?: run {
+                call.respond(HttpStatusCode.Unauthorized)
                 return@post
             }
 
-        val createdFullUser = UsersService.createUser(userInfo)
-            ?.toFullDto()
-            ?: run {
-                call.respond(HttpStatusCode.InternalServerError)
-                return@post
-            }
+            val userInfo = call.receive<UserInfoCreationRequestDto>()
+                .toDomain(uid = principal.uid)
+                ?: run {
+                    call.respond(HttpStatusCode.BadRequest)
+                    return@post
+                }
 
-        call.respond(createdFullUser)
+            val createdFullUser = UsersService.createUser(userInfo)
+                ?.toFullDto()
+                ?: run {
+                    call.respond(HttpStatusCode.InternalServerError)
+                    return@post
+                }
+
+            call.respond(createdFullUser)
+        }
     }
 }
