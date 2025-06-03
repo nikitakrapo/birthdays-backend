@@ -6,15 +6,18 @@ import com.nikitakrapo.utils.toIsoString
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+@Serializable
 data class BirthdaysResponseDto(
     @SerialName("birthdays") val birthdays: List<LocalBirthdayDto>,
 )
 
+@Serializable
 data class BirthdayCreationRequestDto(
     @SerialName("displayName") val displayName: String,
     @SerialName("birthdayDate") val birthdayDate: String,
 )
 
+@Serializable
 data class BirthdayCreationResponseDto(
     @SerialName("birthday") val birthday: LocalBirthdayDto,
 )

@@ -6,7 +6,7 @@ import org.jetbrains.exposed.v1.datetime.CurrentTimestamp
 import org.jetbrains.exposed.v1.datetime.date
 import org.jetbrains.exposed.v1.datetime.timestamp
 
-object LocalBirthdays : Table() {
+object LocalBirthdays : Table(name = "local_birthdays") {
     val id = uuid("id").default(UUID.randomUUID())
     val ownerUid = varchar("owner_uid", 50)
     val displayName = varchar("display_name", 50)

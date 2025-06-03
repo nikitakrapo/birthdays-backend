@@ -15,6 +15,7 @@ object BirthdaysService {
     ): List<LocalBirthday> = transaction {
         LocalBirthdays
             .selectAll()
+            .orderBy(LocalBirthdays.birthdayDate)
             .where { LocalBirthdays.ownerUid eq uid }
             .offset(offset)
             .limit(size)
