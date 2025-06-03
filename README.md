@@ -1,46 +1,41 @@
-# backend
+# birthdays-backend
 
-This project was created using the [Ktor Project Generator](https://start.ktor.io).
+This is a backend part of Birthdays application built by [Ktor](https://github.com/ktorio/ktor)
 
-Here are some useful links to get you started:
-
-- [Ktor Documentation](https://ktor.io/docs/home.html)
-- [Ktor GitHub page](https://github.com/ktorio/ktor)
-- The [Ktor Slack chat](https://app.slack.com/client/T09229ZC6/C0A974TJ9). You'll need to [request an invite](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up) to join.
+You can also check other parts:
+- [Mobile](https://github.com/nikitakrapo/birthdays-mobile) - Android + iOS clients built with KMP
+- [Database](https://github.com/nikitakrapo/birthdays-database) - SQL DB migrations 
 
 ## Features
 
 Here's a list of features included in this project:
 
-| Name                                                                      | Description                                                                        |
-| ---------------------------------------------------------------------------|------------------------------------------------------------------------------------ |
-| [Koin](https://start.ktor.io/p/koin)                                      | Provides dependency injection                                                      |
-| [Content Negotiation](https://start.ktor.io/p/content-negotiation)        | Provides automatic content conversion according to Content-Type and Accept headers |
-| [Routing](https://start.ktor.io/p/routing)                                | Provides a structured routing DSL                                                  |
-| [kotlinx.serialization](https://start.ktor.io/p/kotlinx-serialization)    | Handles JSON serialization using kotlinx.serialization library                     |
-| [Authentication](https://start.ktor.io/p/auth)                            | Provides extension point for handling the Authorization header                     |
-| [Firebase authentication](https://start.ktor.io/p/firebase-auth-provider) | Handles Firebase bearer authentication                                             |
-| [OpenAPI](https://start.ktor.io/p/openapi)                                | Serves OpenAPI documentation                                                       |
-| [Default Headers](https://start.ktor.io/p/default-headers)                | Adds a default set of headers to HTTP responses                                    |
+| Name       | Description                                          |
+|------------|------------------------------------------------------|
+| Users      | You can register your own account with your birthday |
+| Birthdays  | You can save local birthdays of your friends         |
+
+OpenAPI spec is coming soon!
 
 ## Building & Running
 
-To build or run the project, use one of the following tasks:
+Soon you'll be able to check the app by downloading it from Google Play, but if you really want to test it right now, 
+here's the way to launch backend instance on your server.
 
-| Task                          | Description                                                          |
-| -------------------------------|---------------------------------------------------------------------- |
-| `./gradlew test`              | Run the tests                                                        |
-| `./gradlew build`             | Build everything                                                     |
-| `buildFatJar`                 | Build an executable JAR of the server with all dependencies included |
-| `buildImage`                  | Build the docker image to use with the fat JAR                       |
-| `publishImageToLocalRegistry` | Publish the docker image locally                                     |
-| `run`                         | Run the server                                                       |
-| `runDocker`                   | Run using the local docker image                                     |
+For tutorials regarding how to build mobile app and set up DB, follow these links:
+- [Mobile](https://github.com/nikitakrapo/birthdays-mobile)
+- [Database](https://github.com/nikitakrapo/birthdays-database)
 
-If the server starts successfully, you'll see the following output:
+To build or run the project, you'll need to: 
+1. Register a project in firebase, enable Auth & Analytics and download Admin SDK Json
+2. Configure environmental variables
 
-```
-2024-12-04 14:32:45.584 [main] INFO  Application - Application started in 0.303 seconds.
-2024-12-04 14:32:45.682 [main] INFO  Application - Responding at http://0.0.0.0:8080
-```
+    | Variable                         | Description                                 |
+    |----------------------------------|---------------------------------------------|
+    | `DB_HOST`                        | Database host                               |
+    | `DB_NAME`                        | Database name                               |
+    | `DB_USER`                        | Name of DB user with enough permissions     |
+    | `DB_PASSWORD`                    | Password of DB user with enough permissions |
+    | `GOOGLE_APPLICATION_CREDENTIALS` | Path to google admin SDK json               |
+
 
