@@ -1,7 +1,10 @@
 package com.nikitakrapo.features.birthdays
 
 import com.nikitakrapo.db.tables.LocalBirthdays
+import com.nikitakrapo.db.utils.extractDay
+import com.nikitakrapo.db.utils.extractMonth
 import org.jetbrains.exposed.v1.core.ResultRow
+import org.jetbrains.exposed.v1.core.SortOrder
 import org.jetbrains.exposed.v1.jdbc.insertReturning
 import org.jetbrains.exposed.v1.jdbc.selectAll
 import org.jetbrains.exposed.v1.jdbc.transactions.transaction
@@ -15,7 +18,10 @@ object BirthdaysService {
     ): List<LocalBirthday> = transaction {
         LocalBirthdays
             .selectAll()
-            .orderBy(LocalBirthdays.birthdayDate)
+            .orderBy(
+                extractMonth(LocalBirthdays.birthdayDate) to SortOrder.ASC,
+                extractDay(LocalBirthdays.birthdayDate) to SortOrder.ASC,
+            )
             .where { LocalBirthdays.ownerUid eq uid }
             .offset(offset)
             .limit(size)
