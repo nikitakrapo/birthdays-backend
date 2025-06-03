@@ -1,4 +1,4 @@
-package com.nikitakrapo.birthdays.users
+package com.nikitakrapo.features.users
 
 import com.nikitakrapo.db.tables.Users
 import org.jetbrains.exposed.v1.core.ResultRow
@@ -8,23 +8,23 @@ import org.jetbrains.exposed.v1.jdbc.upsertReturning
 
 object UsersService {
 
-    fun getUser(uid: String): UserInfo? = transaction {
+    fun getUser(uid: String): UserInfo = transaction {
         Users
             .selectAll()
             .where { Users.uid eq uid }
-            .firstOrNull()
-            ?.toUserInfo()
+            .first()
+            .toUserInfo()
     }
 
-    fun createUser(userInfo: UserInfo) = transaction {
+    fun createUser(userInfo: UserInfo): UserInfo = transaction {
         Users
             .upsertReturning {
                 it[uid] = userInfo.uid
                 it[diplayName] = userInfo.displayName
                 it[birthdayDate] = userInfo.birthdayDate
             }
-            .singleOrNull()
-            ?.toUserInfo()
+            .single()
+            .toUserInfo()
     }
 
     private fun ResultRow.toUserInfo(): UserInfo {

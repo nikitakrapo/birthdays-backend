@@ -1,8 +1,8 @@
-package com.nikitakrapo.birthdays.users
+package com.nikitakrapo.features.birthdays
 
 import kotlinx.datetime.LocalDate
 
-data class UserInfo(
+data class BirthdayCreationRequest(
     val uid: String,
     val displayName: String,
     val birthdayDate: LocalDate,

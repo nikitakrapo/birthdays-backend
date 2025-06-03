@@ -35,6 +35,7 @@ dependencies {
     implementation(libs.ktor.server.openapi)
     implementation(libs.ktor.server.default.headers)
     implementation(libs.ktor.server.netty)
+    implementation(libs.ktor.server.statusPages)
     implementation(libs.firebase.admin)
     implementation(libs.exposed.core)
     implementation(libs.exposed.jdbc)

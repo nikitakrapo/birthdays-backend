@@ -1,7 +1,8 @@
-package com.nikitakrapo.birthdays.users
+package com.nikitakrapo.features.users
 
-import com.nikitakrapo.utils.encodeAsISO
+import com.nikitakrapo.utils.exceptions.DtoParsingException
 import com.nikitakrapo.utils.parseLocalDateOrNull
+import com.nikitakrapo.utils.toIsoString
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -18,18 +19,19 @@ data class UserInfoCreationRequestDto(
     @SerialName("birthdayDate") val birthdayDate: String,
 )
 
-fun UserInfoCreationRequestDto.toDomain(uid: String): UserInfo? {
+fun UserInfoCreationRequestDto.toDomain(uid: String): UserInfo {
     return UserInfo(
         uid = uid,
         displayName = displayName,
-        birthdayDate = birthdayDate.parseLocalDateOrNull() ?: return null,
+        birthdayDate = birthdayDate.parseLocalDateOrNull()
+            ?: throw DtoParsingException("Error parsing UserInfoCreationRequestDto: wrong birthdayDate"),
     )
 }
 
-fun UserInfo.toFullDto(): UserInfoDto? {
+fun UserInfo.toFullDto(): UserInfoDto {
     return UserInfoDto(
         uid = uid,
         displayName = displayName,
-        birthdayDate = birthdayDate.encodeAsISO() ?: return null,
+        birthdayDate = birthdayDate.toIsoString(),
     )
 }
