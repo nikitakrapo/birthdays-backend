@@ -1,6 +1,7 @@
 package com.nikitakrapo
 
 import com.nikitakrapo.features.birthdays.configureBirthdaysRouting
+import com.nikitakrapo.features.follows.configureFollowsRouting
 import com.nikitakrapo.features.users.configureUsersRouting
 import io.ktor.server.application.Application
 import io.ktor.server.response.respondText
@@ -14,6 +15,7 @@ fun Application.configureRouting() {
         }
 
         configureUsersRouting()
+        configureFollowsRouting()
         configureBirthdaysRouting()
     }
 }

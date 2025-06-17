@@ -1,14 +1,14 @@
-openapi: "3.0.3"
+openapi: "3.1.0"
 info:
-  title: "Application API"
-  description: "Application API"
+  title: "backend API"
+  description: "backend API"
   version: "1.0.0"
 servers:
-  - url: "http://0.0.0.0:8080"
+  - url: "https://backend"
 paths:
   /:
     get:
-      description: "Hello World!"
+      description: ""
       responses:
         "200":
           description: "OK"
@@ -18,6 +18,384 @@ paths:
                 type: "string"
               examples:
                 Example#1:
-                  value: "Hello World!"
+                  value: "Hello World! It's an api"
+  /birthdays:
+    get:
+      description: ""
+      parameters:
+        - name: "offset"
+          in: "query"
+          required: false
+          schema:
+            type: "number"
+        - name: "count"
+          in: "query"
+          required: false
+          schema:
+            type: "integer"
+      responses:
+        "401":
+          description: "Unauthorized"
+          content:
+            text/plain:
+              schema:
+                type: "string"
+              examples:
+                Example#1:
+                  value: ""
+        "400":
+          description: "Bad Request"
+          content:
+            '*/*':
+              schema:
+                type: "object"
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BirthdaysResponseDto"
+    post:
+      description: ""
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BirthdayCreationRequestDto"
+        required: true
+      responses:
+        "401":
+          description: "Unauthorized"
+          content:
+            text/plain:
+              schema:
+                type: "string"
+              examples:
+                Example#1:
+                  value: ""
+        "400":
+          description: "Bad Request"
+          content:
+            text/plain:
+              schema:
+                type: "string"
+              examples:
+                Example#1:
+                  value: ""
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BirthdayCreationResponseDto"
+  /users:
+    get:
+      description: ""
+      responses:
+        "401":
+          description: "Unauthorized"
+          content:
+            text/plain:
+              schema:
+                type: "string"
+              examples:
+                Example#1:
+                  value: ""
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/UserInfoDto"
+    post:
+      description: ""
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserInfoCreationRequestDto"
+        required: true
+      responses:
+        "401":
+          description: "Unauthorized"
+          content:
+            text/plain:
+              schema:
+                type: "string"
+              examples:
+                Example#1:
+                  value: ""
+        "400":
+          description: "Bad Request"
+          content:
+            text/plain:
+              schema:
+                type: "string"
+              examples:
+                Example#1:
+                  value: ""
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/UserInfoDto"
+  /users/{userId}/follow:
+    delete:
+      description: "Cancel follow request"
+      parameters:
+        - name: "userId"
+          in: "path"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        "401":
+          description: "Unauthorized"
+          content:
+            text/plain:
+              schema:
+                type: "string"
+              examples:
+                Example#1:
+                  value: ""
+        "400":
+          description: "Bad Request"
+          content:
+            text/plain:
+              schema:
+                type: "string"
+              examples:
+                Example#1:
+                  value: ""
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "object"
+    post:
+      description: "Create follow request"
+      parameters:
+        - name: "userId"
+          in: "path"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        "401":
+          description: "Unauthorized"
+          content:
+            text/plain:
+              schema:
+                type: "string"
+              examples:
+                Example#1:
+                  value: ""
+        "400":
+          description: "Bad Request"
+          content:
+            text/plain:
+              schema:
+                type: "string"
+              examples:
+                Example#1:
+                  value: ""
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "object"
+  /users/me/follow-requests/incoming:
+    get:
+      description: "Get all incoming follow requests"
+      responses:
+        "401":
+          description: "Unauthorized"
+          content:
+            text/plain:
+              schema:
+                type: "string"
+              examples:
+                Example#1:
+                  value: ""
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/FollowRequestsResponseDto"
+  /users/me/follow-requests/outgoing:
+    get:
+      description: "Get all outgoing follow requests"
+      responses:
+        "401":
+          description: "Unauthorized"
+          content:
+            text/plain:
+              schema:
+                type: "string"
+              examples:
+                Example#1:
+                  value: ""
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/FollowRequestsResponseDto"
+  /users/me/followers/{followerId}/accept:
+    post:
+      description: "Accept follow request"
+      parameters:
+        - name: "followerId"
+          in: "path"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        "401":
+          description: "Unauthorized"
+          content:
+            text/plain:
+              schema:
+                type: "string"
+              examples:
+                Example#1:
+                  value: ""
+        "400":
+          description: "Bad Request"
+          content:
+            text/plain:
+              schema:
+                type: "string"
+              examples:
+                Example#1:
+                  value: ""
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "object"
+  /users/me/followers/{followerId}/reject:
+    post:
+      description: "Reject follow request"
+      parameters:
+        - name: "followerId"
+          in: "path"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        "401":
+          description: "Unauthorized"
+          content:
+            text/plain:
+              schema:
+                type: "string"
+              examples:
+                Example#1:
+                  value: ""
+        "400":
+          description: "Bad Request"
+          content:
+            text/plain:
+              schema:
+                type: "string"
+              examples:
+                Example#1:
+                  value: ""
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "object"
 components:
-  schemas: {}
+  schemas:
+    LocalBirthdayDto:
+      type: "object"
+      properties:
+        id:
+          type: "string"
+        displayName:
+          type: "string"
+        birthdayDate:
+          type: "string"
+        createdAt:
+          type: "string"
+      required:
+        - "id"
+        - "displayName"
+        - "birthdayDate"
+        - "createdAt"
+    BirthdaysResponseDto:
+      type: "object"
+      properties:
+        birthdays:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/LocalBirthdayDto"
+      required:
+        - "birthdays"
+    BirthdayCreationRequestDto:
+      type: "object"
+      properties:
+        displayName:
+          type: "string"
+        birthdayDate:
+          type: "string"
+      required:
+        - "displayName"
+        - "birthdayDate"
+    BirthdayCreationResponseDto:
+      type: "object"
+      properties:
+        birthday:
+          $ref: "#/components/schemas/LocalBirthdayDto"
+      required:
+        - "birthday"
+    UserInfoDto:
+      type: "object"
+      properties:
+        uid:
+          type: "string"
+        displayName:
+          type: "string"
+        birthdayDate:
+          type: "string"
+      required:
+        - "uid"
+        - "displayName"
+        - "birthdayDate"
+    UserInfoCreationRequestDto:
+      type: "object"
+      properties:
+        displayName:
+          type: "string"
+        birthdayDate:
+          type: "string"
+      required:
+        - "displayName"
+        - "birthdayDate"
+    FollowRequestDto:
+      type: "object"
+      properties:
+        followerUid:
+          type: "string"
+        followeeUid:
+          type: "string"
+      required:
+        - "followerUid"
+        - "followeeUid"
+    FollowRequestsResponseDto:
+      type: "object"
+      properties:
+        requests:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/FollowRequestDto"
+      required:
+        - "requests"

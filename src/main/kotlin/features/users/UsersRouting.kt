@@ -12,7 +12,7 @@ import io.ktor.server.routing.post
 fun Routing.configureUsersRouting() {
 
     authenticate {
-        get("/user") {
+        get("/users") {
             val user = requirePrincipal<UserPrincipal>()
 
             val fullUser = UsersService.getUser(user.uid)
@@ -21,7 +21,7 @@ fun Routing.configureUsersRouting() {
             call.respond(fullUser)
         }
 
-        post("/user") {
+        post("/users") {
             val user = requirePrincipal<UserPrincipal>()
 
             val userInfo = call.receive<UserInfoCreationRequestDto>()

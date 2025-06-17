@@ -33,6 +33,7 @@ dependencies {
     implementation(libs.ktor.server.auth)
     implementation(libs.firebase.auth.provider)
     implementation(libs.ktor.server.openapi)
+    implementation(libs.ktor.server.swagger)
     implementation(libs.ktor.server.default.headers)
     implementation(libs.ktor.server.netty)
     implementation(libs.ktor.server.statusPages)
